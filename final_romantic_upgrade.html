@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avu 💕 Romantic Player</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#1a0f14,#2b0f1c,#3a1222,#4a162a);
+  color:#fff0f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* Card */
+.player{
+  width:320px;
+  background:rgba(0,0,0,0.4);
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,77,109,0.4);
+}
+
+/* Title */
+h1{
+  margin:10px 0;
+  text-shadow:0 0 20px rgba(255,77,109,0.6);
+}
+
+/* Button */
+button{
+  background:#ff4d6d;
+  border:none;
+  padding:12px 20px;
+  border-radius:30px;
+  color:white;
+  cursor:pointer;
+  margin:10px;
+  font-size:16px;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* Hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:floatUp 6s linear infinite;
+  opacity:0.6;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-100vh);}
+}
+
+/* Popup */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  visibility:hidden;
+}
+.popup.active{visibility:visible;}
+
+.popup-box{
+  background:#2b0f1c;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+  <h1>For You 💕</h1>
+  <p>Every song reminds me of you</p>
+
+  <button onclick="playSong()">Play</button>
+  <button onclick="showLove()">Message 💌</button>
+</div>
+
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h2>💖</h2>
+    <p>You are my favorite playlist 🎶</p>
+    <button onclick="closeLove()">Close</button>
+  </div>
+</div>
+
+<iframe id="ytFrame" style="width:0;height:0;border:none;"></iframe>
+
+<script>
+
+let songs = [
+"450p7goxZqg", // Tum Hi Ho
+"kXYiU_JCYtU", // romantic
+];
+
+let index = 0;
+
+function playSong(){
+  const frame = document.getElementById("ytFrame");
+  frame.src = `https://www.youtube.com/embed/${songs[index]}?autoplay=1`;
+  index = (index + 1) % songs.length;
+}
+
+/* hearts */
+setInterval(()=>{
+  const h = document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
+/* popup */
+function showLove(){
+  document.getElementById("popup").classList.add("active");
+}
+function closeLove(){
+  document.getElementById("popup").classList.remove("active");
+}
+
+</script>
+
+</body>
+</html>
