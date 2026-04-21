@@ -490,6 +490,59 @@ body{
 .toast-msg.show{opacity:1;transform:translateY(0);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
+/* ═══ MEMORY TIMELINE ═══ */
+.tl-btn{background:none;border:1px solid rgba(240,100,140,.3);border-radius:100px;padding:5px 14px;font-size:.72rem;letter-spacing:.1em;color:rgba(200,60,100,.7);cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif;}
+.tl-btn:hover{background:rgba(240,100,140,.12);border-color:rgba(240,100,140,.5);transform:scale(1.05);}
+
+.tl-overlay{position:fixed;inset:0;z-index:800;background:rgba(10,0,15,.88);backdrop-filter:blur(30px);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .5s ease;}
+.tl-overlay.open{display:flex;opacity:1;}
+
+.tl-modal{position:relative;width:min(460px,90vw);max-height:85vh;overflow-y:auto;padding:40px 28px 36px;scrollbar-width:none;}
+.tl-modal::-webkit-scrollbar{display:none;}
+
+.tl-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:5;}
+.tl-close:hover{background:rgba(255,255,255,.15);color:#fff;}
+
+.tl-header{text-align:center;margin-bottom:36px;}
+.tl-header-tag{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(240,140,180,.45);margin-bottom:8px;}
+.tl-header-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-style:italic;color:#f8bbd0;font-weight:400;margin-bottom:4px;}
+.tl-header-sub{font-size:.78rem;color:rgba(255,200,220,.35);}
+
+.tl-line{position:relative;padding-left:36px;}
+.tl-line::before{content:'';position:absolute;left:13px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(240,100,140,.1),rgba(240,100,140,.5),rgba(240,100,140,.5),rgba(240,100,140,.1));border-radius:2px;}
+
+.tl-item{position:relative;margin-bottom:32px;animation:tlFadeIn .6s ease both;}
+.tl-item:nth-child(1){animation-delay:.1s;}
+.tl-item:nth-child(2){animation-delay:.25s;}
+.tl-item:nth-child(3){animation-delay:.4s;}
+.tl-item:nth-child(4){animation-delay:.55s;}
+.tl-item:nth-child(5){animation-delay:.7s;}
+@keyframes tlFadeIn{from{opacity:0;transform:translateX(-12px);}to{opacity:1;transform:translateX(0);}}
+
+.tl-dot{position:absolute;left:-30px;top:4px;width:12px;height:12px;border-radius:50%;background:rgba(240,100,140,.3);border:2px solid rgba(240,100,140,.6);}
+.tl-item.active .tl-dot{background:#f06292;border-color:#ff80ab;box-shadow:0 0 16px rgba(240,100,140,.7),0 0 30px rgba(240,100,140,.3);animation:tlPulse 2s ease-in-out infinite;}
+.tl-item.bday .tl-dot{background:#ffd54f;border-color:#ffe082;box-shadow:0 0 16px rgba(255,213,79,.6);}
+.tl-item.past .tl-dot{background:rgba(240,100,140,.5);border-color:rgba(240,100,140,.7);}
+@keyframes tlPulse{0%,100%{box-shadow:0 0 16px rgba(240,100,140,.7),0 0 30px rgba(240,100,140,.3);}50%{box-shadow:0 0 24px rgba(240,100,140,.9),0 0 50px rgba(240,100,140,.5);}}
+
+.tl-date{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,140,180,.5);margin-bottom:4px;}
+.tl-item.active .tl-date{color:rgba(240,140,180,.9);}
+.tl-item.bday .tl-date{color:rgba(255,213,79,.8);}
+
+.tl-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:#f8bbd0;margin-bottom:4px;}
+.tl-item.active .tl-title{color:#fff;font-size:1.15rem;}
+.tl-item.bday .tl-title{color:#ffd54f;}
+
+.tl-msg{font-size:.78rem;color:rgba(255,200,220,.4);line-height:1.5;font-style:italic;}
+.tl-item.active .tl-msg{color:rgba(255,200,220,.7);}
+.tl-item.bday .tl-msg{color:rgba(255,213,79,.5);}
+
+.tl-badge{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:100px;font-size:.68rem;letter-spacing:.08em;}
+.tl-badge.now{background:rgba(240,100,140,.18);border:1px solid rgba(240,100,140,.35);color:#ff80ab;}
+.tl-badge.countdown{background:rgba(255,213,79,.12);border:1px solid rgba(255,213,79,.3);color:#ffd54f;}
+
+.tl-footer{text-align:center;margin-top:12px;font-family:'Dancing Script',cursive;font-size:1rem;color:rgba(240,140,180,.5);}
+
 </style>
 </head>
 <body>
@@ -536,6 +589,7 @@ body{
   <div class="header">
     <div class="logo">💕</div>
     <span class="app-name">Avu's Record</span>
+    <button class="tl-btn" onclick="openTimeline()">✦ Our Timeline</button>
     <span class="header-right">made with love 💕</span>
   </div>
 
@@ -638,7 +692,7 @@ const SONGS = [
     id: 0,
     title: "Ek Ajnabi Haseena Se",
     artist: "Kishore Kumar",
-    ytId: "kAC0-jDth8I",
+    ytId: "C7GvN0S9W_g",
     photo: "p6",
     dur: "4:12",
     lyric: "Ek ajnabi haseena se, yun mulaqat ho gayi... Jaane kya baat ho gayi, dil ko dil se pyar ho gaya",
@@ -648,7 +702,7 @@ const SONGS = [
     id: 1,
     title: "Agar Tum Mil Jao",
     artist: "Shreya Ghoshal",
-    ytId: "2E2WA8_teMY",
+    ytId: "kY0wU6H6Y6c",
     photo: "p1",
     dur: "4:38",
     lyric: "Agar tum mil jao, zamana chhod denge hum... Teri ek nazar mein, sab kuch chhod denge hum",
@@ -668,7 +722,7 @@ const SONGS = [
     id: 3,
     title: "Bahon Mein Chale Aao",
     artist: "Lata Mangeshkar",
-    ytId: "EYE61OWUUm8",
+    ytId: "wxknUq6PrpE",
     photo: "p2",
     dur: "5:02",
     lyric: "Bahon mein chale aao, hamaare bahon mein... Aa bhi jao, aa bhi jao... Yeh raat bheegi bheegi",
@@ -676,13 +730,13 @@ const SONGS = [
   },
   {
     id: 4,
-    title: "Jab Tak",
-    artist: "Jab Tak Hai Jaan · A.R. Rahman",
-    ytId: "LSPNRNfHUV8",
+    title: "Jab Tak (Redux)",
+    artist: "Armaan Malik · M.S. Dhoni",
+    ytId: "K-Ts-NFR62o",
     photo: "p4",
     dur: "4:22",
-    lyric: "Jab tak hai jaan, jab tak hai saansein... Tere bina, tere bina... Jee na sakoon main",
-    npLyric: "Jab tak hai jaan, jab tak hai saansein 💫"
+    lyric: "Jab tak tujhe jee na loon, jab tak tujhe pee na loon... Itna bata de mujhe, main kahin aur chaloon",
+    npLyric: "Jab tak tujhe jee na loon 💫"
   }
 ];
 
@@ -909,6 +963,27 @@ const CATALOG = [
   {e:"💌",t:"Humsafar",            a:"Akhil Sachdeva",                    y:"wQYEBjBWmFw",d:"4:52"},
   {e:"🎵",t:"Mann Bharrya",        a:"B Praak",                           y:"jDr05gvnkRE",d:"4:18"},
   {e:"✨",t:"Ve Maahi",            a:"Arijit Singh · Kesari",             y:"hLnLj_7E9fA",d:"4:50"},
+  // ── Lata Mangeshkar Collection ──
+  {e:"🕊️",t:"Ajeeb Daastaan Hai Yeh",  a:"Lata Mangeshkar · Dil Apna Aur Preet Parai", y:"zzuDj7TBPF0",d:"4:10"},
+  {e:"🌹",t:"Tere Bina Zindagi Se",     a:"Lata Mangeshkar · Aandhi",                   y:"WVpXfFI_dSQ",d:"5:15"},
+  {e:"🌙",t:"Aap Ki Nazron Ne Samjha",  a:"Lata Mangeshkar · Anpadh",                   y:"KCaZfFivKWQ",d:"3:52"},
+  {e:"💫",t:"Tujhe Dekha To Yeh Jaana",  a:"Lata Mangeshkar · DDLJ",                    y:"8YjqMJWkEAs",d:"5:18"},
+  {e:"🌸",t:"Pyar Kiya To Darna Kya",   a:"Lata Mangeshkar · Mughal-e-Azam",            y:"r3Njwv7oYYk",d:"5:00"},
+  {e:"💜",t:"Bahon Mein Chale Aao",      a:"Lata Mangeshkar · Anamika",                  y:"wxknUq6PrpE",d:"4:30"},
+  {e:"🎵",t:"Ek Pyar Ka Nagma Hai",      a:"Lata Mangeshkar · Shor",                    y:"PrVu2EmqA0E",d:"5:20"},
+  {e:"🌺",t:"Didi Tera Devar Deewana",   a:"Lata Mangeshkar · Hum Aapke Hain Koun",     y:"0pjNaXuLR2g",d:"5:40"},
+  {e:"💃",t:"Mere Khwabon Mein",         a:"Lata Mangeshkar · DDLJ",                    y:"ZqBv6x_S5i4",d:"4:15"},
+  {e:"🌟",t:"Kuch Kuch Hota Hai",        a:"Lata Mangeshkar · Kavita Krishnamurthy",    y:"BhISQCTR_hI",d:"5:10"},
+  {e:"💕",t:"Humko Humise Chura Lo",     a:"Lata Mangeshkar · Mohabbatein",              y:"p3YZCdGAyuU",d:"6:15"},
+  {e:"🎶",t:"Chalte Chalte",             a:"Lata Mangeshkar · Pakeezah",                y:"k5aZJOJv5C4",d:"5:48"},
+  {e:"🌊",t:"Dil To Pagal Hai",          a:"Lata Mangeshkar · Udit Narayan",            y:"ThCsbEY3jYg",d:"6:30"},
+  {e:"🔥",t:"Satyam Shivam Sundaram",    a:"Lata Mangeshkar",                            y:"EY_1P845pDY",d:"5:05"},
+  {e:"🌈",t:"Tere Liye",                 a:"Lata Mangeshkar · Veer-Zaara",              y:"MR0mEYF5g98",d:"6:10"},
+  {e:"🎀",t:"Do Dil Mil Rahe Hain",      a:"Lata Mangeshkar · Pardes",                  y:"R6VDlVj1_uM",d:"5:22"},
+  {e:"🌻",t:"Yeh Galiyan Yeh Chaubara",  a:"Lata Mangeshkar · Prem Rog",                y:"WmyDw_rAspI",d:"5:50"},
+  {e:"🎸",t:"Naam Gum Jaayega",          a:"Lata Mangeshkar · Kinara",                  y:"mfvfR5HOtGs",d:"4:50"},
+  {e:"💐",t:"Aaj Phir Jeene Ki Tamanna", a:"Lata Mangeshkar · Guide",                   y:"cqRpMRBpbWQ",d:"4:35"},
+  {e:"🦋",t:"Yeh Kahan Aa Gaye Hum",     a:"Lata Mangeshkar · Silsila",                 y:"1GHlZLmNIgo",d:"5:50"},
 ];
 
 const srchInput = document.getElementById("srchInput");
@@ -997,7 +1072,107 @@ function addFromSearch(s){
   selectTrack(i);
 }
 
+/* ═══ MEMORY TIMELINE ═══ */
+const TIMELINE = [
+  {
+    date: "2026-03-16",
+    label: "16th March 2026",
+    title: "Where It All Began ✨",
+    msg: "The first playlist was born... just a few songs, but each one picked with so much thought. This was the day music became our language 🎵"
+  },
+  {
+    date: "2026-03-21",
+    label: "21st March 2026",
+    title: "Spring Equinox 🌸",
+    msg: "New songs, new vibes... the playlist started growing, and so did the feelings woven into every lyric 💜"
+  },
+  {
+    date: "2026-04-05",
+    label: "5th April 2026",
+    title: "The Classics Arrived 🎶",
+    msg: "Lata Mangeshkar, timeless melodies, the golden era... because some love stories deserve a vintage soundtrack 🌹"
+  },
+  {
+    date: "TODAY",
+    label: "Today",
+    title: "Here We Are 💕",
+    msg: "Right now, in this moment — you're reading this, maybe smiling, and that's all that matters. This playlist keeps growing, just like us."
+  },
+  {
+    date: "2026-05-28",
+    label: "28th May 2026",
+    title: "Happy Birthday Avu 🎂🎉",
+    msg: "The most special day of the year! A whole celebration is waiting for you here... just you wait 🎁✨"
+  }
+];
+
+function openTimeline(){
+  const overlay = document.getElementById("tlOverlay");
+  const line = document.getElementById("tlLine");
+  line.innerHTML = "";
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0,10);
+
+  TIMELINE.forEach((item, idx) => {
+    const el = document.createElement("div");
+    el.className = "tl-item";
+    const isToday = item.date === "TODAY";
+    const itemDate = isToday ? todayStr : item.date;
+    const isPast = !isToday && itemDate < todayStr;
+    const isFuture = !isToday && itemDate > todayStr;
+
+    if(isToday) el.classList.add("active");
+    else if(isPast) el.classList.add("past");
+    if(item.date === "2026-05-28") el.classList.add("bday");
+
+    let badge = "";
+    if(isToday){
+      const d = new Date(now);
+      const dateStr = d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+      badge = `<span class="tl-badge now">📍 ${dateStr}</span>`;
+    }
+    if(item.date === "2026-05-28"){
+      const bday = new Date("2026-05-28T00:00:00");
+      const diff = Math.ceil((bday - now)/(1000*60*60*24));
+      if(diff > 0) badge = `<span class="tl-badge countdown">🎂 ${diff} days to go!</span>`;
+      else if(diff === 0) badge = `<span class="tl-badge countdown">🎉 It's TODAY!</span>`;
+      else badge = `<span class="tl-badge countdown">🎂 Celebrated!</span>`;
+    }
+
+    el.innerHTML = `
+      <div class="tl-dot"></div>
+      <div class="tl-date">${item.label}</div>
+      <div class="tl-title">${item.title}</div>
+      <div class="tl-msg">${item.msg}</div>
+      ${badge}`;
+    line.appendChild(el);
+  });
+
+  overlay.style.display = "flex";
+  requestAnimationFrame(() => overlay.classList.add("open"));
+}
+
+function closeTimeline(){
+  const overlay = document.getElementById("tlOverlay");
+  overlay.classList.remove("open");
+  setTimeout(() => overlay.style.display = "none", 500);
+}
+
 </script>
 <div class="toast-msg" id="toastMsg">✨ Added to playlist!</div>
+
+<!-- MEMORY TIMELINE OVERLAY -->
+<div class="tl-overlay" id="tlOverlay" onclick="if(event.target===this)closeTimeline()">
+  <div class="tl-modal">
+    <button class="tl-close" onclick="closeTimeline()">✕</button>
+    <div class="tl-header">
+      <p class="tl-header-tag">✦ our story ✦</p>
+      <h2 class="tl-header-title">Memory Timeline</h2>
+      <p class="tl-header-sub">every moment with you is a song 🎵</p>
+    </div>
+    <div class="tl-line" id="tlLine"></div>
+    <div class="tl-footer">more memories loading... 💕</div>
+  </div>
+</div>
 </body>
 </html>
